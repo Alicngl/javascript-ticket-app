@@ -9,11 +9,12 @@
   </head>
   <body>
     <div class="container">
+      <div class="screen"></div>
       <div class="row">
         <div class="seat"></div>
         <div class="seat"></div>
-        <div class="seat"></div>
-        <div class="seat"></div>
+        <div class="seat reserved"></div>
+        <div class="seat reserved"></div>
         <div class="seat"></div>
         <div class="seat"></div>
         <div class="seat"></div>
@@ -24,8 +25,8 @@
         <div class="seat"></div>
         <div class="seat"></div>
         <div class="seat"></div>
-        <div class="seat"></div>
-        <div class="seat"></div>
+        <div class="seat reserved"></div>
+        <div class="seat reserved"></div>
         <div class="seat"></div>
         <div class="seat"></div>
       </div>
@@ -60,6 +61,32 @@
         <div class="seat"></div>
       </div>
     </div>
+    <div class="movie-list">
+      <select name="" id="movie">
+        <option disabled></option>
+        <option value="20">movie 1</option>
+        <option value="22">movie 2</option>
+        <option value="25">movie 3</option>
+      </select>
+    </div>
+    <ul class="info">
+      <li>
+        <div class="seat selected"></div>
+        <small>seçili</small>
+      </li>
+      <li>
+        <div class="seat"></div>
+        <small>Boş</small>
+      </li>
+      <li>
+        <div class="seat reserved"></div>
+        <small>Dolu</small>
+      </li>
+    </ul>
+    <p class="text">
+      <span id="count">0</span> adet koltuk için hesaplanan ücret
+      <span id="amount">0</span>₺
+    </p>
     <script src="script.js"></script>
   </body>
 </html>
