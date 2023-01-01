@@ -1,20 +1,24 @@
 const container = document.querySelector(".container");
 const select = document.getElementById("movie");
 const seats = document.querySelectorAll(".seat:not(.reserved) ");
-let count;
+const count = document.getElementById("count");
+const amount = document.getElementById("amount");
 
+getLocalStorage();
 container.addEventListener("click", function (e) {
-  e.target.classList.toggle("selected");
-  calculateTotal();
+  if (
+    e.target.classList.contains("seat") &&
+    !e.target.classList.contains("reserved")
+  ) {
+    e.target.classList.toggle("selected");
+    calculateTotal();
+  }
 });
 select.addEventListener("change", function (e) {
   calculateTotal();
 });
 function calculateTotal() {
   let selectedSeat = container.querySelectorAll(".seat.selected");
-  count = selectedSeat.length;
-  let value = select.value;
-  let price = count * value;
 
   let seatArr = [];
   let selectedArr = [];
@@ -28,14 +32,32 @@ function calculateTotal() {
   let selectedSeatIndex = selectedArr.map(function (seat) {
     return seatArr.indexOf(seat);
   });
-  console.log(selectedSeatIndex);
+  let selectedSeatCount = selectedSeat.length;
+  count.innerText = selectedSeatCount;
+  amount.innerText = selectedSeatCount * select.value;
 
-  document.querySelector("#amount").textContent = price;
-  document.getElementById("count").textContent = selectedSeat.length;
   saveLocalStorage(selectedSeatIndex);
 }
 
-function saveLocalStorage(index) {
-  localStorage.setItem("selectedSeat", JSON.stringify(index));
-  localStorage.setItem("selectedMovie",select.selectedIndex)
+function getLocalStorage() {
+  const selectedSeats = JSON.parse(localStorage.getItem("selectedSeat"));
+  const selectedMovieIndex = localStorage.getItem("selectedMovie");
+
+  if (selectedSeats != null && selectedSeats.length > 0) {
+    seats.forEach(function (seat, index) {
+      if (selectedSeats.indexOf(index) > -1) {
+        seat.classList.add("selected");
+      }
+    });
+  }
+  console.log(selectedSeats, "iiiii");
+
+  if (selectedMovieIndex != null) {
+    select.selectedIndex = selectedMovieIndex;
+  }
+}
+
+function saveLocalStorage(indexs) {
+  localStorage.setItem("selectedSeat", JSON.stringify(indexs));
+  localStorage.setItem("selectedMovie", select.selectedIndex);
 }
